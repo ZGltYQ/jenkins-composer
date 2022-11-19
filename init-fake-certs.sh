@@ -66,7 +66,7 @@ esac
 # Enable staging mode if needed
 if [ $staging != "0" ]; then staging_arg="--staging"; fi
 
-docker-compose run --rm -v ${pwd}/system/certbot/www:/var/www/certbot --entrypoint "\
+docker-compose run --rm -v ${PWD}/system/certbot/www:/var/www/certbot --entrypoint "\
   certbot certonly --webroot -w /var/www/certbot \
     $staging_arg \
     $email_arg \
