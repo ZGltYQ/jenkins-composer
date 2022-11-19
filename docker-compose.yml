@@ -1,0 +1,30 @@
+version: '3.7'
+networks:
+  default: 
+    name: jenkins
+services:
+  jenkins:
+    image: jenkins/jenkins:lts-jdk11
+    restart: always
+  nginx:
+    build: nginx
+    container_name: nginx
+    restart: always
+    environment:
+      TZ: ${TIMEZONE:-Europe/Kiev}
+      MODE: ${NGINX_MODE:-default}
+    volumes:
+      - ${PWD}/system/certbot/conf:/etc/letsencrypt
+      - ${PWD}/system/certbot/www:/var/www/certbot
+    ports:
+      - 80:80
+      - 443:443
+  certbot:
+    image: certbot/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    container_name: certbot
+    volumes:
+      - ${PWD}/system/certbot/conf:/etc/letsencrypt
+      - ${PWD}/system/certbot/www:/var/www/certbot
+    
+
