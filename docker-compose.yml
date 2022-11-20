@@ -6,7 +6,7 @@ services:
   jenkins:
     image: jenkins/jenkins:lts-jdk11
     environment:
-      - JENKINS_OPTS="--prefix=/"
+      - JENKINS_OPTS="--httpListenAddress=127.0.0.1"
     restart: always
   nginx:
     build: nginx
