@@ -8,7 +8,7 @@ services:
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - $(which docker):/usr/bin/docker
+      - ${DOCKER_PATH}:/usr/bin/docker
   nginx:
     build: nginx
     container_name: nginx
